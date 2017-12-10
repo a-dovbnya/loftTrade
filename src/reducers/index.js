@@ -3,9 +3,10 @@ import {combineReducers} from 'redux';
 import followers from './followers';
 import auth from './auth';
 import network from './network';*/
+import auth from './auth';
 
 export default combineReducers({
-  //auth,
+  auth,
   //followers,
   //users,
   //network

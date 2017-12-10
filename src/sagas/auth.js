@@ -1,6 +1,6 @@
-import {authorize, logout} from '../actions/auth';
+//import {authorize, logout} from '../actions/auth';
 import {take, put, call, select} from 'redux-saga/effects';
-import {setTokenApi, clearTokenApi} from '../api';
+import {setTokenApi, clearTokenApi, login, registration} from '../api';
 import {getIsAuthorized} from '../reducers/auth';
 import {
   getTokenFromLocalStorage,
@@ -8,9 +8,15 @@ import {
   removeTokenFromLocalStorage,
 } from '../localStorage';
 
-//----------------------
-//import {setToken} from '../actions/auth';
-//import {takeLatest} from 'redux-saga/effects';
+import {
+  fetchLoginRequest, 
+  fetchLoginSucess, 
+  fetchLoginFailure,
+  fetchRegistrationRequest,
+  fetchRegistrationSucess,
+  fetchRegistrationFailure,
+  logout
+} from "../actions/auth";
 
 export function* authFlow() {
   while (true) {
@@ -21,11 +27,28 @@ export function* authFlow() {
     if (!isAuthorized) {
       if (localStorageToken) {
         token = localStorageToken;
-        yield put(authorize());
+        //yield put(fetchLoginSucess());
       } else {
-        const action = yield take(authorize);
-        token = action.payload;
+        const action = yield take([
+          fetchLoginRequest,
+          fetchRegistrationRequest
+        ]);
+        // авторизация или регистрация
+        console.log(action);
+        if(action.type === fetchLoginRequest.toString()){
+          try{
+            token = yield call(login, action.payload);
+          }catch(e){
+            console.log(e);
+            yield put(fetchLoginFailure(e.massage));
+          }
+        }else if(action.type === fetchRegistrationRequest.toString()){
+          token = yield call(registration, action.payload);
+        }
+        //token = action.payload;
       }
+      console.log("token = ", token);
+      yield put(fetchLoginSucess());
     }
 
     yield call(setTokenApi, token);
@@ -36,11 +59,3 @@ export function* authFlow() {
   }
 }
 
-
-/*function setTokenSaga(action) {
-  console.log("in saga");
-  setTokenApi(action.payload);
-}
-export function* setTokenWatch() {
-  yield takeLatest(setToken, setTokenSaga);
-}*/
