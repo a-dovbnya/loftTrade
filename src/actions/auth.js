@@ -22,12 +22,12 @@ import { createActions, createAction } from "redux-actions";
 
 const actions = createActions({
   AUTH: {
-    LOGIN_REQUEST: undefined,
-    LOGIN_SUCCESS: undefined,
-    LOGIN_FAILURE: undefined,
-    REGISTRATION_REQUEST: undefined,
-    REGISTRATION_SUCESS: undefined,
-    REGISTRATION_FAILURE: undefined
+    LOGIN_REQUEST: null,
+    LOGIN_SUCCESS: null,
+    LOGIN_FAILURE: null,
+    REGISTRATION_REQUEST: null,
+    REGISTRATION_SUCESS: null,
+    REGISTRATION_FAILURE: null
   }
 });
 export const logout = createAction("LOGOUT");

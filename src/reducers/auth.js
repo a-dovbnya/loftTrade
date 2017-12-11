@@ -22,7 +22,7 @@ export default handleActions({
         isAuthorized: true
     }),
     [fetchLoginFailure]: (state, action) => ({
-        ...state, 
+        ...initiaState, 
         loginError: action.payload
     }),
     [fetchRegistrationFailure]: (state, action) => ({

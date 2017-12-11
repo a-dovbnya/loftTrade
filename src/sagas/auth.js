@@ -18,6 +18,8 @@ import {
   logout
 } from "../actions/auth";
 
+import request from "./request";
+
 export function* authFlow() {
   while (true) {
     const isAuthorized = yield select(getIsAuthorized);
@@ -27,28 +29,42 @@ export function* authFlow() {
     if (!isAuthorized) {
       if (localStorageToken) {
         token = localStorageToken;
-        //yield put(fetchLoginSucess());
+        yield put(fetchLoginSucess());
       } else {
         const action = yield take([
           fetchLoginRequest,
           fetchRegistrationRequest
         ]);
         // авторизация или регистрация
-        console.log(action);
         if(action.type === fetchLoginRequest.toString()){
+          // Авторизация
           try{
             token = yield call(login, action.payload);
-          }catch(e){
-            console.log(e);
-            yield put(fetchLoginFailure(e.massage));
+            console.log('token = ', token);
+            yield put(fetchLoginSucess());
+            console.log(token);
+          }catch(error){
+            console.log(error);
+            fetchLoginFailure(error.data.message);
           }
         }else if(action.type === fetchRegistrationRequest.toString()){
-          token = yield call(registration, action.payload);
+          // Регистрация
+
         }
+
+        /*if (action.type === fetchLoginRequest.toString()) {
+          
+          token = yield call(request, login, action.payload);
+          console.log("token = ", token);
+        } else if ( action.type === fetchRegistrationRequest.toString() ) {
+          token = yield call(request, registration, action.payload);
+          console.log("token = ", token);
+        }*/
+        //yield put(fetchLoginSucess());
         //token = action.payload;
       }
-      console.log("token = ", token);
-      yield put(fetchLoginSucess());
+ 
+      
     }
 
     yield call(setTokenApi, token);

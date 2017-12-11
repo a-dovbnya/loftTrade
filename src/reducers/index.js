@@ -4,6 +4,7 @@ import followers from './followers';
 import auth from './auth';
 import network from './network';*/
 import auth from './auth';
+//import network from './network';
 
 export default combineReducers({
   auth,

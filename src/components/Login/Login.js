@@ -7,6 +7,8 @@ import ParticlesParams from "../../particles-params";
 
 import { fetchLoginRequest, fetchRegistrationRequest } from "../../actions/auth";
 
+import {setTokenApi, clearTokenApi, login, registration} from '../../api'; // Удалить!
+
 import './Login.css';
 
 
@@ -29,18 +31,20 @@ export class Login extends PureComponent{
     }
     btnClickHandler = () => {
         if(this.state.registration){
-            console.log("dispatch register", fetchRegistrationRequest);
-            this.props.fetchRegistrationRequest(fetchRegistrationRequest(this.state.authData));
+            //console.log("dispatch register", fetchRegistrationRequest(this.state.authData));
+            this.props.fetchRegistrationRequest(this.state.authData);
+            //registration(this.state.authData).then( response => {console.log("response = ", response)});
+          
         }else{
-            console.log("dispatch auth");
-            this.props.fetchLoginRequest(fetchRegistrationRequest(this.state.authData));
+            //console.log("dispatch auth", fetchLoginRequest(this.state.authData));
+            this.props.fetchLoginRequest(this.state.authData);
             //this.props.registration();
+            //login(this.state.authData).then( response => {console.log("response = ", response)});
         }
     }
 
     render(){
-        console.log('fetchRegistrationRequest', fetchRegistrationRequest);
-        console.log('fetchLoginRequest', fetchLoginRequest);
+
         const bntTxt = this.state.registration ? "Регистрация" : "Вход" ;
         const linkTxt = this.state.registration ? "Войти" : "Зарегистрироваться";
         const regTxt = this.state.registration ? "Уже зарегистрированы?" : "Впервые на сайте?";
@@ -110,5 +114,5 @@ const mapDispatchToProps = {
     fetchRegistrationRequest
     //authorize: auth => dispatch(auth) 
 };
-console.log('mapDispatchToProps',mapDispatchToProps);
+console.log('mapDispatchToProps', mapDispatchToProps);
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
