@@ -1,0 +1,19 @@
+.footer {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    height: 80px;
+  }
+  .footer-wrapp {
+    height: 80px;
+    margin-top: -80px;
+    background: #2a2c2e;
+    width: 100%;
+  }
+  

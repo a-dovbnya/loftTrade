@@ -13,12 +13,9 @@ import {
   fetchLoginSucess, 
   fetchLoginFailure,
   fetchRegistrationRequest,
-  fetchRegistrationSucess,
   fetchRegistrationFailure,
   logout
 } from "../actions/auth";
-
-import request from "./request";
 
 export function* authFlow() {
   while (true) {
@@ -35,36 +32,32 @@ export function* authFlow() {
           fetchLoginRequest,
           fetchRegistrationRequest
         ]);
-        // авторизация или регистрация
+
         if(action.type === fetchLoginRequest.toString()){
-          // Авторизация
+          /*** Авторизация ***/
           try{
             token = yield call(login, action.payload);
-            console.log('token = ', token);
+            token = token.data.jwt;            
             yield put(fetchLoginSucess());
-            console.log(token);
+
           }catch(error){
-            console.log(error);
-            fetchLoginFailure(error.data.message);
+            yield put( fetchLoginFailure(error.data.message));
+            continue;
           }
         }else if(action.type === fetchRegistrationRequest.toString()){
-          // Регистрация
-
+          /*** Регистрация ***/
+          try{
+            token = yield call(registration, action.payload);
+            token = token.data.jwt;
+            yield put(fetchLoginSucess());
+          }catch(error){
+            yield put( fetchRegistrationFailure(error.data.message.email[0]));
+            continue;
+          }
         }
 
-        /*if (action.type === fetchLoginRequest.toString()) {
-          
-          token = yield call(request, login, action.payload);
-          console.log("token = ", token);
-        } else if ( action.type === fetchRegistrationRequest.toString() ) {
-          token = yield call(request, registration, action.payload);
-          console.log("token = ", token);
-        }*/
-        //yield put(fetchLoginSucess());
-        //token = action.payload;
       }
  
-      
     }
 
     yield call(setTokenApi, token);

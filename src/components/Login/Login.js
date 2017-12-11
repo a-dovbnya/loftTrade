@@ -1,13 +1,10 @@
 import React, {PureComponent} from 'react';
 import {connect} from "react-redux";
-//import {authorize} from "../../actions/auth";
-import { Redirect } from 'react-router-dom';
 import Particles from "react-particles-js";
 import ParticlesParams from "../../particles-params";
 
 import { fetchLoginRequest, fetchRegistrationRequest } from "../../actions/auth";
-
-import {setTokenApi, clearTokenApi, login, registration} from '../../api'; // Удалить!
+import { getIsLoginError, getIsregistationError} from "../../reducers/auth";
 
 import './Login.css';
 
@@ -31,15 +28,9 @@ export class Login extends PureComponent{
     }
     btnClickHandler = () => {
         if(this.state.registration){
-            //console.log("dispatch register", fetchRegistrationRequest(this.state.authData));
             this.props.fetchRegistrationRequest(this.state.authData);
-            //registration(this.state.authData).then( response => {console.log("response = ", response)});
-          
         }else{
-            //console.log("dispatch auth", fetchLoginRequest(this.state.authData));
             this.props.fetchLoginRequest(this.state.authData);
-            //this.props.registration();
-            //login(this.state.authData).then( response => {console.log("response = ", response)});
         }
     }
 
@@ -48,6 +39,7 @@ export class Login extends PureComponent{
         const bntTxt = this.state.registration ? "Регистрация" : "Вход" ;
         const linkTxt = this.state.registration ? "Войти" : "Зарегистрироваться";
         const regTxt = this.state.registration ? "Уже зарегистрированы?" : "Впервые на сайте?";
+        const error = this.props.loginError || this.props.registrationError;
 
         return(
            
@@ -87,15 +79,13 @@ export class Login extends PureComponent{
                                     </div>
                                 </div>
                             </div>
-                            <div className="auth__error">
-                                user not found or password is incorrect
-                            </div>
+                            { error && <div className="auth__error">{error}</div> }
                             <div className="auth__row auth__row_btn">
                                 <button className="auth__btn" onClick={this.btnClickHandler}>{bntTxt}</button>
                             </div>
                         </div>
                         <div className="auth-panel">
-                            {regTxt} <a href="#" className="link" onClick={this.changeAuthAction}>{linkTxt}</a>
+                            {regTxt} <span className="link" onClick={this.changeAuthAction}>{linkTxt}</span>
                         </div>
                     </div>
                 </div>
@@ -107,12 +97,11 @@ export class Login extends PureComponent{
 }
 
 const mapStateToProps = state => ({
-    //auth: state.auth
+    loginError: getIsLoginError(state),
+    registrationError: getIsregistationError(state)
 });
 const mapDispatchToProps = {
     fetchLoginRequest, 
     fetchRegistrationRequest
-    //authorize: auth => dispatch(auth) 
 };
-console.log('mapDispatchToProps', mapDispatchToProps);
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
