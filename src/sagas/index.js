@@ -9,6 +9,7 @@ import {
   fetchBtcWatch,
   fetchEthWatch
 } from "./currency";
+import {fetchUserWatch} from "./wallet";
 
 
 export default function*() {
@@ -16,4 +17,5 @@ export default function*() {
   yield fork(currencyWatch);
   yield fork(fetchBtcWatch);
   yield fork(fetchEthWatch);
+  yield fork(fetchUserWatch);
 }

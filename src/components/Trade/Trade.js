@@ -6,11 +6,12 @@ import Header from "../Header";
 import Footer from "../Footer";
 import { LineChart } from "react-chartkick";
 
-import { selectBtc, selectEth, selectOffset } from "../../actions/currency";
+import { selectBtc, selectEth, selectOffset, fetchUserRequest } from "../../actions/currency";
 import Loader from 'react-svg-spinner';
-//import TradeOperations from "../TradeOperations";
+import TradeOperations from "../TradeOperations";
+import UserInfo from "../UserInfo";
 
-  import {
+import {
     sell,
     purchase,
     getMinVal,
@@ -19,7 +20,7 @@ import Loader from 'react-svg-spinner';
     getOffset,
     getSymbol
 
-  } from "../../reducers/currency";
+} from "../../reducers/currency";
 
   const offsets = [
     ['2h', '2ч'],
@@ -34,7 +35,9 @@ export class Trade extends PureComponent{
         const symbol = this.props.match.params.symbol;
         if (symbol) {
             this.props.selectBtc(symbol);
-        }        
+        }
+        // Отправка запроса на получение данных пользователя
+        this.props.fetchUserRequest();
     }
     componentWillReceiveProps(nextProps) {
         const currentSymbol = this.props.match.params.symbol;
@@ -62,7 +65,8 @@ export class Trade extends PureComponent{
                     <Header symbol={symbol}/>
                     <main className="container main">
                         <aside className="main__sidebar">
-
+                            <UserInfo />
+                            <TradeOperations />
                         </aside>
                         <article className="main__content">
                             <div className="period-panel" onClick = {this.selectPeriodHandler}>
@@ -109,10 +113,11 @@ const mapStateToProps = state => ({
     isFething: isFething(state),
     currOffset: getOffset(state),
     symbol: getSymbol(state)
-  });
-  const mapDispatchToProps = {
+});
+const mapDispatchToProps = {
     selectBtc,
     selectEth,
-    selectOffset
-  };
+    selectOffset,
+    fetchUserRequest
+};
 export default connect(mapStateToProps, mapDispatchToProps)(Trade);

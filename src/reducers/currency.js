@@ -73,3 +73,35 @@ export const getMaxVal = state => {
 };
 export const getOffset = state => state.currency.offset;
 export const getSymbol = state => state.currency.selected;
+// ----------------------------------------
+export const getCurrentBtcSell = state => {
+    if(state.currency.btc.length > 0){
+        return state.currency.btc[0].sell;
+    }else{
+        return 0;
+    }
+}
+export const getCurrentBtcPurchase = state => {
+    if(state.currency.btc.length > 0){
+        return state.currency.btc[0].purchase;
+    }else{
+        return 0;
+    }
+}
+export const getCurrentEthSell = state => {
+    if(state.currency.eth.length > 0){
+        return state.currency.eth[0].sell;
+    }else{
+        return 0;
+    }
+}
+export const getCurrentEthPurchase = state => {
+    if(state.currency.eth.length > 0){
+        return  state.currency.eth[0].purchase;
+    }else{
+        return 0;
+    }
+}
+//export const getCurrentEthSell = state => state.currency.btc[state.currency.btc.length - 1].purchase;
+//export const getCurrentBtcPurchase = state => state.currency.eth[state.currency.eth.length - 1].sell;
+//export const getCurrentEthPurchase = state => state.currency.eth[state.currency.eth.length - 1].purchase;
