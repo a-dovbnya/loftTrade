@@ -1,11 +1,21 @@
 import React, {PureComponent} from 'react';
 import {connect} from "react-redux";
 import "./Header.css";
+import { Link } from 'react-router-dom';
 
 export class Header extends PureComponent{
 
-
     render(){
+        const symbol = this.props.symbol;
+        let btcClass = '';
+        let ethClass = '';
+        
+        if(symbol === "btc"){
+            btcClass = "currency-instrument__link_active";
+        }else if(symbol === "eth"){
+            ethClass = "currency-instrument__link_active";
+        }
+
         return(
            
             <header className="header-wrapp">
@@ -20,20 +30,20 @@ export class Header extends PureComponent{
 
                         <div className="currency-instrument">
                             <div className="currency-instrument__item">
-                                <a href="#" className="currency-instrument__link">
+                                <Link to="/trade/btc" className={"currency-instrument__link " + btcClass}>
                                     <span className="currency-instrument__txt-wrapp">
                                         <span className="currency-instrument__cource">4 277,5</span>
                                         <span className="currency-instrument__name">1 BTC</span>
                                     </span>
-                                </a>
+                                </Link>
                             </div>
                             <div className="currency-instrument__item">
-                                <a href="#" className="currency-instrument__link">
+                                <Link to="/trade/eth" className={"currency-instrument__link " + ethClass}>
                                     <span className="currency-instrument__txt-wrapp">
                                         <span className="currency-instrument__cource">290</span>
                                         <span className="currency-instrument__name">1 ETH</span>
                                     </span>
-                                </a>
+                                </Link>
                             </div>
                         </div>
 

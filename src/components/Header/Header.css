@@ -115,7 +115,7 @@
     -o-transition: 0.25s ease;
     transition: 0.25s ease;
   }
-  .header-nav__link:hover {
+  .header-nav__link:hover, .currency-instrument__link_active {
     color: #4db6e2;
   }
   .header-nav__quantity {
