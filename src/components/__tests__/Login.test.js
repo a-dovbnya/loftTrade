@@ -2,9 +2,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { Login } from '../Login/Login';
-//import { Followers } from '../Followers/Followers';
-//import { fetchUserRequest } from "../../actions/users";
-//import Loader from 'react-svg-spinner';
 
 describe('Компонент Login ', () => {
     describe('Содержит метод ', () => {

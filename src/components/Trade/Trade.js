@@ -45,7 +45,7 @@ export class Trade extends PureComponent{
 
         if (currentSymbol !== nextSymbol ) {
             if(nextSymbol !== undefined){
-                this.props.selectBtc(nextSymbol );
+                this.props.selectBtc(nextSymbol);
             }
         }
     }

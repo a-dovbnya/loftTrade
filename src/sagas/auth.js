@@ -1,4 +1,4 @@
-//import {authorize, logout} from '../actions/auth';
+
 import {take, put, call, select} from 'redux-saga/effects';
 import {setTokenApi, clearTokenApi, login, registration} from '../api';
 import {getIsAuthorized} from '../reducers/auth';
@@ -28,10 +28,7 @@ export function* authFlow() {
         token = localStorageToken;
         yield put(fetchLoginSucess());
       } else {
-        const action = yield take([
-          fetchLoginRequest,
-          fetchRegistrationRequest
-        ]);
+        const action = yield take([fetchLoginRequest, fetchRegistrationRequest]);
 
         if(action.type === fetchLoginRequest.toString()){
           /*** Авторизация ***/
@@ -39,7 +36,7 @@ export function* authFlow() {
             token = yield call(login, action.payload);
             token = token.data.jwt;            
             yield put(fetchLoginSucess());
-
+            
           }catch(error){
             yield put( fetchLoginFailure(error.data.message));
             continue;
