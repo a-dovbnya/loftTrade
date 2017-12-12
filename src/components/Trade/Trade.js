@@ -8,6 +8,7 @@ import { LineChart } from "react-chartkick";
 
 import { selectBtc, selectEth, selectOffset } from "../../actions/currency";
 import Loader from 'react-svg-spinner';
+//import TradeOperations from "../TradeOperations";
 
   import {
     sell,
@@ -61,7 +62,7 @@ export class Trade extends PureComponent{
                     <Header symbol={symbol}/>
                     <main className="container main">
                         <aside className="main__sidebar">
-                            
+
                         </aside>
                         <article className="main__content">
                             <div className="period-panel" onClick = {this.selectPeriodHandler}>
