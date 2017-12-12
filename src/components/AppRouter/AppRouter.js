@@ -7,8 +7,6 @@ import Trade from '../Trade';
 import { connect } from "react-redux";
 import { getIsAuthorized } from "../../reducers/auth";
 
-
-
 export class AppRouter extends Component {
 
   render() {
