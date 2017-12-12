@@ -57,7 +57,7 @@ export class Login extends PureComponent{
                                     <div className="auth__col">
                                         <input 
                                             type="text" 
-                                            className="auth__area" 
+                                            className="auth__area auth__area_email" 
                                             placeholder="login"
                                             name="email"
                                             onChange = {this.changeHandler}
@@ -71,7 +71,7 @@ export class Login extends PureComponent{
                                     <div className="auth__col">
                                         <input 
                                             type="password" 
-                                            className="auth__area" 
+                                            className="auth__area auth__area_password" 
                                             placeholder="password"
                                             name="password"
                                             onChange = {this.changeHandler}
@@ -85,7 +85,7 @@ export class Login extends PureComponent{
                             </div>
                         </div>
                         <div className="auth-panel">
-                            {regTxt} <span className="link" onClick={this.changeAuthAction}>{linkTxt}</span>
+                            {regTxt} <span className="link change-auth-method" onClick={this.changeAuthAction}>{linkTxt}</span>
                         </div>
                     </div>
                 </div>
