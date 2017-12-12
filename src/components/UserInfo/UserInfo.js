@@ -14,8 +14,7 @@ import {
 export class UserInfo extends PureComponent{
 
     render(){
-        console.log("user props = ",this.props);
-        const { error, isLoading, coinsMoney, coinsBtc, coinsEth } = this.props;
+        const { isLoading, coinsMoney, coinsBtc, coinsEth } = this.props;
         return(
             <div className="user-info">
                 <h3 className="user-info__title">Ваш счет</h3>

@@ -2,10 +2,17 @@ import React, {PureComponent} from 'react';
 import {connect} from "react-redux";
 import "./Header.css";
 import { Link } from 'react-router-dom';
+import {getCurrentBtcPurchase, getCurrentEthPurchase} from "../../reducers/currency";
+import {logout} from '../../actions/auth';
 
 export class Header extends PureComponent{
 
+    logoutHandler = () => {
+        this.props.logout();
+    }
+
     render(){
+        
         const symbol = this.props.symbol;
         let btcClass = '';
         let ethClass = '';
@@ -25,14 +32,13 @@ export class Header extends PureComponent{
                             <div className="header__logo">
                                 <img src={"/assets/img/Logo-white.svg"} className="header__logo-img" alt=""/>
                             </div>
-                            <a href="#" className="header__bargaining link">Торги</a>
                         </div>
 
                         <div className="currency-instrument">
                             <div className="currency-instrument__item">
                                 <Link to="/trade/btc" className={"currency-instrument__link " + btcClass}>
                                     <span className="currency-instrument__txt-wrapp">
-                                        <span className="currency-instrument__cource">4 277,5</span>
+                                        <span className="currency-instrument__cource">{this.props.currentBtcPurchase}</span>
                                         <span className="currency-instrument__name">1 BTC</span>
                                     </span>
                                 </Link>
@@ -40,17 +46,15 @@ export class Header extends PureComponent{
                             <div className="currency-instrument__item">
                                 <Link to="/trade/eth" className={"currency-instrument__link " + ethClass}>
                                     <span className="currency-instrument__txt-wrapp">
-                                        <span className="currency-instrument__cource">290</span>
+                                        <span className="currency-instrument__cource">{this.props.currentEthPurchase}</span>
                                         <span className="currency-instrument__name">1 ETH</span>
                                     </span>
                                 </Link>
                             </div>
                         </div>
 
-                        <nav className="header-nav">
-                            <div className="header-nav__item"><a href="#" className="header-nav__link">Лента</a><span className="header-nav__quantity">9+</span></div>
-                            <div className="header-nav__item"><a href="#" className="header-nav__link">3 место</a></div>
-                            <div className="header-nav__item"><a href="#" className="header-nav__link">user123@mail.ru</a></div>
+                        <nav className="header-nav"> 
+                            <div className="header-nav__item"><button className="header-nav__link" onClick={this.logoutHandler}>Выход</button></div>
                         </nav>
                     </div>
                 </div>
@@ -62,9 +66,10 @@ export class Header extends PureComponent{
 }
 
 const mapStateToProps = state => ({
-    //auth: state.auth
+    currentBtcPurchase: getCurrentBtcPurchase(state).toFixed(1),
+    currentEthPurchase: getCurrentEthPurchase(state).toFixed(1)
 });
-const mapDispatchToProps = dispatch => ({
-    //authorize: auth => dispatch(auth) 
-});
+const mapDispatchToProps = {
+    logout
+};
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

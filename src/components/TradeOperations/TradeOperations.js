@@ -70,6 +70,7 @@ const Input = styled.input`
   padding: 5px 0 3px;
   padding-right: 40px;
   box-sizing: border-box;
+  height: 31px;
 `;
 
 const Currency = styled.span`
@@ -87,6 +88,12 @@ const Button = styled.button`
   border: 0;
   color: #fff;
   padding: 5px 0 3px;
+  height: 30px;
+  line-height: 16px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: 0.25s ease;
+  outline: none;
 `;
 
 const ButtonSell = Button.extend`

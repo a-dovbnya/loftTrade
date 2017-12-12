@@ -114,6 +114,12 @@
     -webkit-transition: 0.25s ease;
     -o-transition: 0.25s ease;
     transition: 0.25s ease;
+    border: none;
+    appearance: none;
+    cursor: pointer;
+    outline: none;
+    font-weight: normal;
+    font-size: 15px;
   }
   .header-nav__link:hover, .currency-instrument__link_active {
     color: #4db6e2;

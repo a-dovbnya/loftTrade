@@ -1,7 +1,3 @@
-/*import {fork} from 'redux-saga/effects';
-import {fetchUserWatch} from './users';
-import {fetchFollowersWatch} from './followers';
-import { authFlow } from "./auth";*/
 import {fork} from 'redux-saga/effects';
 import { authFlow } from "./auth";
 import {
@@ -9,7 +5,7 @@ import {
   fetchBtcWatch,
   fetchEthWatch
 } from "./currency";
-import {fetchUserWatch} from "./wallet";
+import {fetchUserWatch, sellOperationWatch, buyOperationWatch} from "./wallet";
 
 
 export default function*() {
@@ -18,4 +14,6 @@ export default function*() {
   yield fork(fetchBtcWatch);
   yield fork(fetchEthWatch);
   yield fork(fetchUserWatch);
+  yield fork(buyOperationWatch);
+  yield fork(sellOperationWatch);
 }

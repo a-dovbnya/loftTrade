@@ -10,7 +10,6 @@ import {
     buyCurrencyFailure
   } from "../actions/currency";
   import { handleActions } from "redux-actions";
-  import { combineReducers } from "redux";
   
  const initiaState = {
     isLoading: false,
@@ -38,12 +37,13 @@ export default handleActions({
   }),
   [sellCurrencyRequest] : (state, action) => ({
     ...state,
-    isLoading: true
+    isLoading: true,
+    error: null
   }),
   [sellCurrencySuccess] : (state, action) => ({
     ...state,
     isLoading: false,
-    coins: action.payload
+    error: null
   }),
   [sellCurrencyFailure] : (state, action) => ({
     ...initiaState,
@@ -51,12 +51,13 @@ export default handleActions({
   }),
   [buyCurrencyRequest] : (state, action) => ({
     ...state,
-    isLoading: true
+    isLoading: true,
+    error: null
   }),
   [buyCurrencySuccess] : (state, action) => ({
     ...state,
     isLoading: false,
-    coins: action.payload
+    error: null
   }),
   [buyCurrencyFailure] : (state, action) => ({
     ...initiaState,
